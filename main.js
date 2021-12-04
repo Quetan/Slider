@@ -15,7 +15,7 @@ class Slider {
 		this.dots = config.dots === undefined ? true : config.dots;
 		this.counter = config.counter === undefined ? false : config.counter;
 		this.animation =
-			config.animation === undefined ? 'fadeIn' : config.animation;
+			config.animation === undefined ? 'zoomIn' : config.animation;
 		this.animationSpeed =
 			config.animationSpeed === undefined ? 500 : config.animationSpeed;
 		this.autoplay = config.autoplay === undefined ? false : config.autoplay;
@@ -133,6 +133,12 @@ class Slider {
 		}
 	}
 
+  _addAnimation(){
+    this._slides.forEach((i) => {
+      i.style.animation = `${this.animation} ${this.animationSpeed}ms`;
+    })
+  }
+
 	//Item Class
 	_isItemClass() {
 		if (this.itemClass === '') return 0;
@@ -163,6 +169,7 @@ class Slider {
 		this._isAutoplay();
 		this._isItemClass();
 		this._Counter();
+    this._addAnimation();
 
 		//Активный слайд
 		this._slides.forEach((c) => {
@@ -204,8 +211,8 @@ let config = {
 	navigation: true, // ready
 	dots: true, // ready
 	counter: true, //ready
-	animation: 'fadeIn',
-	animationSpeed: 300,
+	animation: 'zoomIn',
+	animationSpeed: 400,
 	// autoplay: true, //ready
 	// autoplayReversed: true, //ready
 	autoplayTimeout: 4000, //ready
