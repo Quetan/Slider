@@ -1,0 +1,86 @@
+*, *::after, *::before {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+html{
+	overflow-x: hidden;
+}
+
+.container{
+	width: 100%;
+	padding: 50px 15px;
+	max-height: 100vh;
+}
+
+.slider--item{
+	width: 33%;
+}
+
+.slider--item img{
+	height: 300px;
+}
+
+.slider--wrapper {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+.slider--container{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	margin-bottom: 2rem;
+}
+
+.slider--buttons {
+	display: flex;
+	padding: 0 33%;
+	justify-content: space-between;
+	align-items: center;
+	flex-direction: row;
+	flex-wrap: nowrap;
+}
+
+.slider--dots {
+	width: 100%;
+	margin: 0 5px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-direction: row;
+	flex-wrap: nowrap;
+}
+
+.slider--dot {
+	width: 6px;
+	height: 6px;
+	background-color: #fff;
+	border-radius: 100%;
+	opacity: 0.4;
+}
+
+.slider--dot.active {
+	opacity: 1;
+}
+
+.slider--previous,
+.slider--next {
+	font-size: 2rem;
+	line-height: 0;
+	outline: none;
+	opacity: 0.8;
+}
+
+.slider--prev:focus,
+.slider--next:focus {
+	outline: none;
+}
+
+.slider--prev:hover,
+.slider--next:hover {
+	opacity: 1;
+}
