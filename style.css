@@ -51,6 +51,7 @@ html{
 	flex-direction: row;
 	flex-wrap: nowrap;
 	justify-content: space-around;
+	align-items: center;
 }
 
 .slider--dots {
@@ -108,3 +109,23 @@ outline: none;
 .slider--next:hover {
 	opacity: 1;
 }
+
+.slider--counter{
+	margin: 1rem 0;
+	text-align: center;
+}
+
+.slider--counter__current{
+	font-size: 1.2rem;
+	font-weight: 600;
+	line-height: 1;
+
+}
+
+.slider--counter__total{
+	font-weight: 500;
+	opacity: 0.8;
+	line-height: 1;
+
+}
+
