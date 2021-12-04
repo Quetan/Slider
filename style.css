@@ -89,9 +89,17 @@ html {
 	line-height: 0;
 	outline: none;
 	opacity: 0.4;
-	background-color: transparent;
 	border: none;
 	cursor: pointer;
+	width: 20px;
+	height: 20px;
+	background-color: transparent;
+	border-top: 5px solid #000;
+	border-right: 5px solid #000;
+	border-top-right-radius: 5px;
+	border-top-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	display: none;
 }
 
 .slider--previous:focus,
@@ -101,9 +109,11 @@ html {
 
 .slider--previous {
 	margin-right: 2rem;
+	transform: rotate(225deg);
 }
 .slider--next {
 	margin-left: 2rem;
+	transform: rotate(45deg);
 }
 
 .slider--previous:hover,
