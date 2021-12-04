@@ -1,0 +1,7 @@
+.vscode/*
+ignore/*
+*.txt
+*.zip
+*.rar
+*.log
+*.pdf
