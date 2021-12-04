@@ -43,7 +43,7 @@ Put this **HTML** code into your `.html` file:
 - Include **JS** file into your HTML footer: <br>
 
 ```html
-<script src="js/slider.min.js"></script>
+<script src="js/slider.min.js" defer></script>
 ```
 
 - Now call the **Slider** initializer function in your `main.js` file and your slider is ready: <br>
