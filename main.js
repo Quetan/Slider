@@ -33,6 +33,7 @@ class Slider {
 		this._isDev = true;
   }
 
+  //DEV
   _test() {
     console.log(this);
   }
@@ -106,11 +107,11 @@ class Slider {
   //Autoplay
   _isAutoplay() {
     if (this.autoplay === false) return 0;
+    let timer = setTimeout(autoplay.bind(this), this.autoplayTimeout);
     function autoplay() {
       this.autoplayReversed ? this._handlePrev() : this._handleNext();
       timer = setTimeout(autoplay.bind(this), this.autoplayTimeout);
     }
-    let timer = setTimeout(autoplay.bind(this), this.autoplayTimeout);
   }
 
   //Item Class
@@ -128,6 +129,7 @@ class Slider {
     });
     this._slides[this._getIndex()].classList.add("slider--item__active");
     this._activeDot();
+    //DEV
     if (this._isDev) {
 			this._test();
 		}
@@ -135,11 +137,13 @@ class Slider {
 
   //Функция отображения
   showSlider() {
+    //Конфиг
     this.dots ? this._initDots() : this._hideDots();
     this._isHidedNavigation();
     this._isAutoplay();
     this._isItemClass();
 
+    //Активный слайд
     this._slides.forEach((c) => {
       c.classList.remove("slider--item__active");
     });
@@ -174,7 +178,7 @@ let config = {
   animation: "fadeIn",
   animationSpeed: 300,
   autoplay: true, //ready
-  autoplayReversed: true, //ready
+  // autoplayReversed: true, //ready
   autoplayTimeout: 4000, //ready
   itemClass: "my-class", //ready
 };

@@ -14,13 +14,14 @@ html{
 	max-height: 100vh;
 }
 
-.slider--item{
-	width: 33%;
-}
+
 
 .slider--item img{
-	height: 300px;
+	max-height: 500px;
+	width: 100%;
 }
+
+/* Стили слайдера */
 
 .slider--wrapper {
 	display: flex;
@@ -36,18 +37,25 @@ html{
 	margin-bottom: 2rem;
 }
 
-.slider--buttons {
+.slider--item{
+	width: 100%;
+	display: none;
+}
+
+.slider--item.slider--item__active{
+	display: block;
+}
+
+.slider--navigation{
 	display: flex;
-	padding: 0 33%;
-	justify-content: space-between;
-	align-items: center;
 	flex-direction: row;
 	flex-wrap: nowrap;
+	justify-content: space-around;
 }
 
 .slider--dots {
-	width: 100%;
-	margin: 0 5px;
+	min-width: 80px;
+	margin: 0 10px;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -56,11 +64,17 @@ html{
 }
 
 .slider--dot {
-	width: 6px;
-	height: 6px;
-	background-color: #fff;
+	width: 10px;
+	height: 10px;
+	cursor: pointer;
+	background-color: #000;
 	border-radius: 100%;
 	opacity: 0.4;
+	border: none;
+}
+
+.slider--dot:focus {
+outline: none;
 }
 
 .slider--dot.active {
@@ -72,15 +86,25 @@ html{
 	font-size: 2rem;
 	line-height: 0;
 	outline: none;
-	opacity: 0.8;
+	opacity: 0.4;
+	background-color: transparent;
+	border: none;
+	cursor: pointer;
 }
 
-.slider--prev:focus,
+.slider--previous:focus,
 .slider--next:focus {
 	outline: none;
 }
 
-.slider--prev:hover,
+.slider--previous {
+	margin-right: 2rem;
+}
+.slider--next {
+	margin-left: 2rem;
+}
+
+.slider--previous:hover,
 .slider--next:hover {
 	opacity: 1;
 }
