@@ -1,5 +1,4 @@
-.vscode/**
-ignore/**
+/**/ignore/**
 *.txt
 *.zip
 *.rar
