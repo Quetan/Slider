@@ -17,7 +17,7 @@ class Slider {
 		this._next = document.querySelector('.slider--next');
 		this._prev = document.querySelector('.slider--previous');
 		this._dots = document.querySelector('.slider--dots');
-    this._counter = document.querySelector('.slider--counter');
+		this._counter = document.querySelector('.slider--counter');
 		//Public
 		this.navigation =
 			config.navigation === undefined ? true : config.navigation;
@@ -120,7 +120,9 @@ class Slider {
 						: this._getIndex() + 1
 				)}
       </span>
+      <span class="slider--counter__divider">
       /
+      </span>
       <span class="slider--counter__total">
       ${String(
 				this._slidesCount < 10 ? `0${this._slidesCount}` : this._slidesCount
@@ -155,7 +157,7 @@ class Slider {
 		});
 		this._slides[this._getIndex()].classList.add('slider--item__active');
 		this._activeDot();
-    this._Counter();
+		this._Counter();
 		//DEV
 		if (this._isDev) {
 			this._test();
