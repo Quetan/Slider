@@ -43,6 +43,15 @@ export default class Slider {
 	getIndex() {
 		return this._currentIndex;
 	}
+
+	getPrevIndex(){
+		return this._currentIndex === 0 ? this._slidesCount - 1 : this._currentIndex - 1;
+	}
+
+	getNextIndex(){
+		return (this._currentIndex + 1) % this._slidesCount === 0 ? 0 : this._currentIndex + 1;
+	}
+
 	setIndex(newIndex) {
 		if (newIndex || newIndex === 0) {
 			this._currentIndex = newIndex;
@@ -94,16 +103,12 @@ export default class Slider {
 
 	//Handlers
 	_handlePrev() {
-		this.getIndex() === 0
-			? this.setIndex(this._slidesCount - 1)
-			: this.setIndex(this.getIndex() - 1);
-		this._updateSlider();
+		this.setIndex(this.getPrevIndex());
+		this._updateSlider(this.getNextIndex());
 	}
 	_handleNext() {
-		(this.getIndex() + 1) % this._slidesCount === 0
-			? this.setIndex(0)
-			: this.setIndex(this.getIndex() + 1);
-		this._updateSlider();
+		this.setIndex(this.getNextIndex());
+		this._updateSlider(this.getPrevIndex());
 	}
 	_handleDot(newIndex) {
 		this.setIndex(newIndex);
@@ -126,13 +131,9 @@ export default class Slider {
 		if (!this.counter) return 0;
 		if (this._counter) {
 			this._counter.innerHTML = `
-				<span class="slider--counter__current">${String(
-					this.getIndex() < 10 ? `0${this.getIndex() + 1}` : this.getIndex() + 1
-				)} </span>
+				<span class="slider--counter__current">${this.getIndex() < 10 ? `0${this.getIndex() + 1}` : this.getIndex() + 1}</span>
 				<span class="slider--counter__divider"> / </span>
-				<span class="slider--counter__total"> ${String(
-					this._slidesCount < 10 ? `0${this._slidesCount}` : this._slidesCount
-				)}</span>
+				<span class="slider--counter__total"> ${this._slidesCount < 10 ? `0${this._slidesCount}` : this._slidesCount}</span>
 			`;
 		}
 	}
@@ -155,11 +156,9 @@ export default class Slider {
 	}
 
 	//UpdateSlider
-	_updateSlider() {
+	_updateSlider(currentIndex = this._currentIndex) {
 		if (this._slides !== 0) {
-			this._slides.forEach((c) => {
-				c.classList.remove('slider--item__active');
-			});
+			this._slides[currentIndex].classList.remove('slider--item__active');
 			this._slides[this.getIndex()].classList.add('slider--item__active');
 			this._activeDot();
 			this._Counter();
