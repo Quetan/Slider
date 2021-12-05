@@ -63,7 +63,7 @@ Put this **HTML** code into your `.html` file:
 - Now call the **Slider** initializer function in your `main.js` file and your slider is ready: <br>
 
 ```javascript
-let slider = new Slider('#slider', config).show();
+let slider = new Slider('#slider').show();
 ```
 
 ## Configuration
