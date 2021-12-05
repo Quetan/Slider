@@ -1,0 +1,74 @@
+.slider
+  &--navigation
+    display: flex
+    flex-direction: row
+    flex-wrap: nowrap
+    justify-content: space-around
+    align-items: center
+  &--dots
+    min-width: 80px
+    margin: 0 2rem
+    display: flex
+    justify-content: space-between
+    align-items: center
+    flex-direction: row
+    flex-wrap: nowrap
+  &--dot
+    width: 10px
+    height: 10px
+    cursor: pointer
+    background-color: #000
+    border-radius: 100%
+    opacity: 0.4
+    border: none
+    margin-right: 2px
+    &:last-child
+      margin-right: 0
+    &:focus
+      outline: none
+    &.active
+      opacity: 1
+  &--previous, 
+  &--next
+    outline: none
+    opacity: 0.4
+    border: none
+    cursor: pointer
+    width: 20px
+    height: 20px
+    background-color: transparent
+    border-top: 5px solid #000
+    border-right: 5px solid #000
+    border-top-right-radius: 5px
+    border-top-left-radius: 5px
+    border-bottom-right-radius: 5px
+    display: none
+    &:focus
+      outline: none
+    &:hover
+      opacity: 1
+  &--previous
+    transform: rotate(225deg)
+    margin-right: 10px
+  &--next
+    transform: rotate(45deg)
+    margin-left: 10px
+  &--counter
+    display: flex
+    align-items: center
+    flex-direction: row
+    margin: 1rem 0
+    text-align: center
+    &__current
+      font-size: 1.2rem
+      font-weight: 600
+      line-height: 1
+      margin-right: 0.4rem
+    &__total
+      font-weight: 500
+      opacity: 0.8
+      line-height: 1
+      margin-left: 0.4rem
+    &__divider
+      font-weight: 400
+      line-height: 1

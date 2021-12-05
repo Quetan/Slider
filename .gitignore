@@ -1,6 +1,7 @@
-/**/ignore/**
+/node_modules/
+/.git/
+/**/Thumbs.db
+/**/*.DS_Store
+/**/package-lock.json
+/**/debug.log
 *.txt
-*.zip
-*.rar
-*.log
-*.pdf
