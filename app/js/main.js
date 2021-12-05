@@ -12,5 +12,5 @@ document.addEventListener('DOMContentLoaded', (event) => {
         autoplayTimeout: 5000,
         itemClass: 'my-class',
     };
-	let slider = new Slider(config).show('#slider');
+	let slider = new Slider('#slider', config).show();
 });
