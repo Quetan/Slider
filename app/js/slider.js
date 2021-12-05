@@ -53,9 +53,12 @@ export default class Slider {
 	}
 
 	setIndex(newIndex) {
-		if (newIndex || newIndex === 0) {
+		if (newIndex && newIndex < this._slidesCount || newIndex === 0) {
+			let temp = this._currentIndex;
 			this._currentIndex = newIndex;
+			this._updateSlider(temp);
 		}
+		return this._currentIndex;
 	}
 
 	//Setter for Item Class
