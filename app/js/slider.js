@@ -1,7 +1,17 @@
 export default class Slider {
 	constructor(root, config) {
 		//Avoid config === undefined
-		config === undefined ? (config = {}) : config;
+		config === undefined ? (config = {
+			navigation: true,
+			dots: true,
+			counter: true,
+			animation: 'fadeIn',
+			snimationSpeed: 1800,
+			autoplay: true,
+			autoplayReversed: false,
+			autoplayTimeout: 5000,
+			itemClass: ''
+		}) : config;
 		//Private
 		root !== undefined && root ? (this._root = root) : (this._root = '#slider');
 		this._slides = document.querySelectorAll(this._root + ' .slider--item');
@@ -12,20 +22,15 @@ export default class Slider {
 		this._counter = document.querySelector(this._root + ' .slider--counter');
 		this._currentIndex = 0;
 		//Public
-		this.navigation =
-			config.navigation === undefined ? true : config.navigation;
-		this.dots = config.dots === undefined ? true : config.dots;
-		this.counter = config.counter === undefined ? true : config.counter;
-		this.animation =
-			config.animation === undefined ? 'fadeIn' : config.animation;
-		this.animationSpeed =
-			config.animationSpeed === undefined ? 1800 : config.animationSpeed;
-		this.autoplay = config.autoplay === undefined ? true : config.autoplay;
-		this.autoplayReversed =
-			config.autoplayReversed === undefined ? false : config.autoplayReversed;
-		this.autoplayTimeout =
-			config.autoplayTimeout === undefined ? 5000 : config.autoplayTimeout;
-		this.itemClass = config.itemClass === undefined ? '' : config.itemClass;
+		this.navigation = config.navigation;
+		this.dots = config.dots;
+		this.counter = config.counter;
+		this.animation = config.animation;
+		this.animationSpeed = config.animationSpeed;
+		this.autoplay = config.autoplay;
+		this.autoplayReversed = config.autoplayReversed;
+		this.autoplayTimeout = config.autoplayTimeout;
+		this.itemClass = config.itemClass;
 	}
 
 	//Set main root selector
