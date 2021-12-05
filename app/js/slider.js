@@ -6,7 +6,7 @@ export default class Slider {
 			dots: true,
 			counter: true,
 			animation: 'fadeIn',
-			snimationSpeed: 1800,
+			animationSpeed: 1800,
 			autoplay: true,
 			autoplayReversed: false,
 			autoplayTimeout: 5000,
