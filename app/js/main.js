@@ -14,4 +14,5 @@ document.addEventListener('DOMContentLoaded', (event) => {
     };
 	let slider = new Slider('#slider', config);
     slider.show();
+    console.log(slider.setIndex(5))
 });

@@ -107,15 +107,12 @@ export default class Slider {
 	//Handlers
 	_handlePrev() {
 		this.setIndex(this.getPrevIndex());
-		this._updateSlider(this.getNextIndex());
 	}
 	_handleNext() {
 		this.setIndex(this.getNextIndex());
-		this._updateSlider(this.getPrevIndex());
 	}
 	_handleDot(newIndex) {
 		this.setIndex(newIndex);
-		this._updateSlider();
 	}
 
 	//Navigation
