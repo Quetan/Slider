@@ -4,6 +4,10 @@
 
 Slider is a lightweight slider based on pure JS. The slider is responsive and supports keyboard. The slider is easy to integrate into your project, and its configuration is extremely simple. 
 
+### Preview
+
+You can look Slider at work [here](https://quetan.github.io/Slider/index.html)
+
 ## Installation
 
 ### Put HTML
