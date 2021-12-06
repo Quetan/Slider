@@ -1,19 +1,20 @@
-import { Animations } from "./animations";
 export default class Slider {
 	constructor(root, config) {
 		//Avoid config === undefined
-		config === undefined ? (config = {
-			navigation: true,
-			dots: true,
-			counter: true,
-			animationIn: 'fadeInRight',
-			animationOut: 'fadeOutLeft',
-			animationDuration: 300,
-			autoplay: true,
-			autoplayReversed: false,
-			autoplayTimeout: 5000,
-			itemClass: ''
-		}) : config;
+		config === undefined
+			? (config = {
+					navigation: true,
+					dots: true,
+					counter: true,
+					animationIn: 'fadeInRight',
+					animationOut: 'fadeOutLeft',
+					animationDuration: 300,
+					autoplay: true,
+					autoplayReversed: false,
+					autoplayTimeout: 5000,
+					itemClass: '',
+			  })
+			: config;
 		//Private
 		root !== undefined && root ? (this._root = root) : (this._root = '#slider');
 		this._slides = document.querySelectorAll(this._root + ' .slider--item');
@@ -48,21 +49,87 @@ export default class Slider {
 		return this._currentIndex;
 	}
 
-	getPrevIndex(){
-		return this._currentIndex === 0 ? this._slidesCount - 1 : this._currentIndex - 1;
+	getPrevIndex() {
+		return this._currentIndex === 0
+			? this._slidesCount - 1
+			: this._currentIndex - 1;
 	}
 
-	getNextIndex(){
-		return (this._currentIndex + 1) % this._slidesCount === 0 ? 0 : this._currentIndex + 1;
+	getNextIndex() {
+		return (this._currentIndex + 1) % this._slidesCount === 0
+			? 0
+			: this._currentIndex + 1;
 	}
 
 	setIndex(newIndex) {
-		if (newIndex && newIndex < this._slidesCount || newIndex === 0) {
+		if ((newIndex && newIndex < this._slidesCount) || newIndex === 0) {
 			let temp = this._currentIndex;
 			this._currentIndex = newIndex;
 			this._updateSlider(temp);
 		}
 		return this._currentIndex;
+	}
+
+	_getAnimationKeyframes(animation) {
+		switch (animation) {
+			case 'fadeIn':
+				return [{ opacity: 0 }, { opacity: 1 }];
+			case 'fadeOut':
+				return [{ opacity: 1 }, { opacity: 0 }];
+			case 'fadeInRight':
+				return [
+					{ opacity: 0, transform: 'translate3d(100%, 0, 0)' },
+					{ opacity: 1, transform: 'translateZ(0)' },
+				];
+			case 'fadeInLeft':
+				return [
+					{ opacity: 0, transform: 'translate3d(-100%, 0, 0)' },
+					{ opacity: 1, transform: 'translateZ(0)' },
+				];
+			case 'fadeOutLeft':
+				return [
+					{ opacity: 1, transform: 'translate3d(0, 0, 0)' },
+					{ opacity: 0, transform: 'translate3d(-100%, 0, 0)' }
+				];
+			case 'fadeOutRight':
+				return [
+					{ opacity: 1, transform: 'translate3d(0, 0, 0)' },
+					{ opacity: 0, transform: 'translate3d(100%, 0, 0)' },
+				];
+			case 'zoomIn':
+				return [
+					{ opacity: 0, transform: 'scale3d(.3,.3,.3)' },
+					{ opacity: 1, offset: 0.5 },
+				];
+			case 'zoomOut':
+				return [
+					{ opacity: 1 },
+					{ transform: 'scale3d(.3,.3,.3)', opacity: 0, offset: 0.8 },
+					{ opacity: 0 },
+				];
+			case 'slideInRight':
+				return [
+					{ transform: 'translate3d(100%, 0, 0)', visibility: 'visible' },
+					{ transform: 'translate3d(0, 0, 0)' },
+				];
+			case 'slideOutRight':
+				return [
+					{ transform: 'translate3d(0, 0, 0)', visibility: 'visible' },
+					{ transform: 'translate3d(150%, 0, 0)' },
+				];
+			case 'slideInLeft':
+				return [
+					{ transform: 'translate3d(-100%, 0, 0)', visibility: 'visible' },
+					{ transform: 'translate3d(0, 0, 0)' },
+				];
+			case 'slideOutLeft':
+				return [
+					{ transform: 'translate3d(0, 0, 0)', visibility: 'visible' },
+					{ transform: 'translate3d(-150%, 0, 0)' },
+				];
+			default:
+				return [{ opacity: 1 }, { opacity: 0 }];
+		}
 	}
 
 	//Setter for Item Class
@@ -139,12 +206,10 @@ export default class Slider {
 	//Counter
 	_Counter() {
 		if (!this.counter) return 0;
+		let isCurrentZero = this.getIndex() < 10 ? `0${this.getIndex() + 1}` : this.getIndex() + 1,
+			isTotalZero = this._slidesCount < 10 ? `0${this._slidesCount}` : this._slidesCount;
 		if (this._counter) {
-			this._counter.innerHTML = `
-				<span class="slider--counter__current">${this.getIndex() < 10 ? `0${this.getIndex() + 1}` : this.getIndex() + 1}</span>
-				<span class="slider--counter__divider"> / </span>
-				<span class="slider--counter__total"> ${this._slidesCount < 10 ? `0${this._slidesCount}` : this._slidesCount}</span>
-			`;
+			this._counter.innerHTML = `<span class="slider--counter__current">${isCurrentZero}</span><span class="slider--counter__divider"> / </span><span class="slider--counter__total"> ${isTotalZero}</span>`;
 		}
 	}
 
@@ -158,28 +223,38 @@ export default class Slider {
 		}
 	}
 
-	_showSlide(index){
+	_showSlide(index) {
 		this._slides[index].classList.add('slider--item__active');
 	}
 
-	_hideSlide(index){
+	_hideSlide(index) {
 		this._slides[index].classList.remove('slider--item__active');
 	}
 
-	_animateSlide(target, keyframes, duration, callback){
+	_animateSlide(target, keyframes, duration, callback) {
 		let animation = target.animate(keyframes, duration);
 		animation.addEventListener('finish', callback);
 	}
 
-	_switchSlide(index){
+	_switchSlide(index) {
 		this._isDisabled = true;
-		this._animateSlide(this._slides[index], Animations[this.animationOut], this.animationDuration, (e) => {
-			this._hideSlide(index);
-			this._showSlide(this.getIndex());
-			this._animateSlide(this._slides[this.getIndex()], Animations[this.animationIn], this.animationDuration, () => {
-				this._isDisabled = false;
-			});
-		});
+		this._animateSlide(
+			this._slides[index],
+			this._getAnimationKeyframes(this.animationOut),
+			this.animationDuration,
+			(e) => {
+				this._hideSlide(index);
+				this._showSlide(this.getIndex());
+				this._animateSlide(
+					this._slides[this.getIndex()],
+					this._getAnimationKeyframes(this.animationIn),
+					this.animationDuration,
+					() => {
+						this._isDisabled = false;
+					}
+				);
+			}
+		);
 	}
 
 	//UpdateSlider
