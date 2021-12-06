@@ -6,8 +6,9 @@ export default class Slider {
 			navigation: true,
 			dots: true,
 			counter: true,
-			animation: 'fadeIn',
-			animationDuration: 1800,
+			animationIn: 'fadeInRight',
+			animationOut: 'fadeOutLeft',
+			animationDuration: 300,
 			autoplay: true,
 			autoplayReversed: false,
 			autoplayTimeout: 5000,
@@ -22,11 +23,13 @@ export default class Slider {
 		this._dots = document.querySelector(this._root + ' .slider--dots');
 		this._counter = document.querySelector(this._root + ' .slider--counter');
 		this._currentIndex = 0;
+		this._isDisabled = false;
 		//Public
 		this.navigation = config.navigation;
 		this.dots = config.dots;
 		this.counter = config.counter;
-		this.animation = config.animation;
+		this.animationIn = config.animationIn;
+		this.animationOut = config.animationOut;
 		this.animationDuration = config.animationDuration;
 		this.autoplay = config.autoplay;
 		this.autoplayReversed = config.autoplayReversed;
@@ -70,6 +73,12 @@ export default class Slider {
 				newClass !== undefined && newClass !== '' ? newClass : this.itemClass
 			);
 		});
+	}
+
+	_addListener(target, eventType, func) {
+		if (target) {
+			target.addEventListener(eventType, func.bind(this));
+		}
 	}
 
 	//Add navigation dots
@@ -149,32 +158,36 @@ export default class Slider {
 		}
 	}
 
-	//Animation
-	// _addAnimation() {
-	// 	this._slides.forEach((i) => {
-	// 		i.style.animation = `${this.animation} ${this.animationDuration}ms`;
-	// 	});
-	// }
+	_showSlide(index){
+		this._slides[index].classList.add('slider--item__active');
+	}
+
+	_hideSlide(index){
+		this._slides[index].classList.remove('slider--item__active');
+	}
 
 	_animateSlide(target, keyframes, duration, callback){
-		target.animate(keyframes, duration);
+		let animation = target.animate(keyframes, duration);
+		animation.addEventListener('finish', callback);
+	}
+
+	_switchSlide(index){
+		this._isDisabled = true;
+		this._animateSlide(this._slides[index], Animations[this.animationOut], this.animationDuration, (e) => {
+			this._hideSlide(index);
+			this._showSlide(this.getIndex());
+			this._animateSlide(this._slides[this.getIndex()], Animations[this.animationIn], this.animationDuration, () => {
+				this._isDisabled = false;
+			});
+		});
 	}
 
 	//UpdateSlider
 	_updateSlider(currentIndex = this._currentIndex) {
 		if (this._slides !== 0) {
-			this._slides[currentIndex].classList.remove('slider--item__active');
-			this._slides[this.getIndex()].classList.add('slider--item__active');
-			this._animateSlide(this._slides[this.getIndex()], Animations.fadeInRight, this.animationDuration, (e) => {
-			});
+			this._switchSlide(currentIndex);
 			this._activeDot();
 			this._Counter();
-		}
-	}
-
-	_addListener(target, eventType, func) {
-		if (target) {
-			target.addEventListener(eventType, func.bind(this));
 		}
 	}
 
@@ -184,13 +197,14 @@ export default class Slider {
 		this.dots ? this._initDots() : this._Dots();
 		this._Navigation();
 		this._Autoplay();
-		// this._addAnimation();
+		this._Counter();
 		this.setItemClass();
-		this._updateSlider();
+		this._showSlide(this.getIndex());
 		//Listeners
 		this._addListener(this._next, 'click', this._handleNext);
 		this._addListener(this._prev, 'click', this._handlePrev);
 		this._addListener(document.querySelector(this._root), 'keydown', (e) => {
+			if (this._isDisabled) return 0;
 			if (e.keyCode === 37) this._handlePrev();
 			if (e.keyCode === 39) this._handleNext();
 		});
