@@ -1,20 +1,19 @@
 export default class Slider {
-	constructor(root, config) {
-		//Avoid config === undefined
-		config === undefined
-			? (config = {
-					navigation: true,
-					dots: true,
-					counter: true,
-					animationIn: 'fadeInRight',
-					animationOut: 'fadeOutLeft',
-					animationDuration: 300,
-					autoplay: true,
-					autoplayReversed: false,
-					autoplayTimeout: 5000,
-					itemClass: '',
-			  })
-			: config;
+	constructor(
+		root,
+		{
+			navigation = true,
+			dots = true,
+			counter = true,
+			animationIn = 'fadeIn',
+			animationOut = 'fadeOut',
+			animationDuration = 200,
+			autoplay = true,
+			autoplayReversed = false,
+			autoplayTimeout = 5000,
+			itemClass = '',
+		} = {}
+	) {
 		//Private
 		root !== undefined && root ? (this._root = root) : (this._root = '#slider');
 		this._slides = document.querySelectorAll(this._root + ' .slider--item');
@@ -26,16 +25,16 @@ export default class Slider {
 		this._currentIndex = 0;
 		this._isDisabled = false;
 		//Public
-		this.navigation = config.navigation;
-		this.dots = config.dots;
-		this.counter = config.counter;
-		this.animationIn = config.animationIn;
-		this.animationOut = config.animationOut;
-		this.animationDuration = config.animationDuration;
-		this.autoplay = config.autoplay;
-		this.autoplayReversed = config.autoplayReversed;
-		this.autoplayTimeout = config.autoplayTimeout;
-		this.itemClass = config.itemClass;
+		this.navigation = navigation;
+		this.dots = dots;
+		this.counter = counter;
+		this.animationIn = animationIn;
+		this.animationOut = animationOut;
+		this.animationDuration = animationDuration;
+		this.autoplay = autoplay;
+		this.autoplayReversed = autoplayReversed;
+		this.autoplayTimeout = autoplayTimeout;
+		this.itemClass = itemClass;
 	}
 
 	//Set main root selector
@@ -89,7 +88,7 @@ export default class Slider {
 			case 'fadeOutLeft':
 				return [
 					{ opacity: 1, transform: 'translate3d(0, 0, 0)' },
-					{ opacity: 0, transform: 'translate3d(-100%, 0, 0)' }
+					{ opacity: 0, transform: 'translate3d(-100%, 0, 0)' },
 				];
 			case 'fadeOutRight':
 				return [
@@ -133,7 +132,7 @@ export default class Slider {
 	}
 
 	//Setter for Item Class
-	setItemClass(newClass) {
+	_setItemClass(newClass) {
 		if (this.itemClass === '') return 0;
 		this._slides.forEach((i) => {
 			i.classList.add(
@@ -206,8 +205,10 @@ export default class Slider {
 	//Counter
 	_Counter() {
 		if (!this.counter) return 0;
-		let isCurrentZero = this.getIndex() < 10 ? `0${this.getIndex() + 1}` : this.getIndex() + 1,
-			isTotalZero = this._slidesCount < 10 ? `0${this._slidesCount}` : this._slidesCount;
+		let isCurrentZero =
+				this.getIndex() < 10 ? `0${this.getIndex() + 1}` : this.getIndex() + 1,
+			isTotalZero =
+				this._slidesCount < 10 ? `0${this._slidesCount}` : this._slidesCount;
 		if (this._counter) {
 			this._counter.innerHTML = `<span class="slider--counter__current">${isCurrentZero}</span><span class="slider--counter__divider"> / </span><span class="slider--counter__total"> ${isTotalZero}</span>`;
 		}
@@ -273,7 +274,7 @@ export default class Slider {
 		this._Navigation();
 		this._Autoplay();
 		this._Counter();
-		this.setItemClass();
+		this._setItemClass();
 		this._showSlide(this.getIndex());
 		//Listeners
 		this._addListener(this._next, 'click', this._handleNext);
