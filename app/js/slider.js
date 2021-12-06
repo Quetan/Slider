@@ -1,3 +1,4 @@
+import { Animations } from "./animations";
 export default class Slider {
 	constructor(root, config) {
 		//Avoid config === undefined
@@ -6,7 +7,7 @@ export default class Slider {
 			dots: true,
 			counter: true,
 			animation: 'fadeIn',
-			animationSpeed: 1800,
+			animationDuration: 1800,
 			autoplay: true,
 			autoplayReversed: false,
 			autoplayTimeout: 5000,
@@ -26,7 +27,7 @@ export default class Slider {
 		this.dots = config.dots;
 		this.counter = config.counter;
 		this.animation = config.animation;
-		this.animationSpeed = config.animationSpeed;
+		this.animationDuration = config.animationDuration;
 		this.autoplay = config.autoplay;
 		this.autoplayReversed = config.autoplayReversed;
 		this.autoplayTimeout = config.autoplayTimeout;
@@ -149,10 +150,14 @@ export default class Slider {
 	}
 
 	//Animation
-	_addAnimation() {
-		this._slides.forEach((i) => {
-			i.style.animation = `${this.animation} ${this.animationSpeed}ms`;
-		});
+	// _addAnimation() {
+	// 	this._slides.forEach((i) => {
+	// 		i.style.animation = `${this.animation} ${this.animationDuration}ms`;
+	// 	});
+	// }
+
+	_animateSlide(target, keyframes, duration, callback){
+		target.animate(keyframes, duration);
 	}
 
 	//UpdateSlider
@@ -160,6 +165,8 @@ export default class Slider {
 		if (this._slides !== 0) {
 			this._slides[currentIndex].classList.remove('slider--item__active');
 			this._slides[this.getIndex()].classList.add('slider--item__active');
+			this._animateSlide(this._slides[this.getIndex()], Animations.fadeInRight, this.animationDuration, (e) => {
+			});
 			this._activeDot();
 			this._Counter();
 		}
@@ -177,7 +184,7 @@ export default class Slider {
 		this.dots ? this._initDots() : this._Dots();
 		this._Navigation();
 		this._Autoplay();
-		this._addAnimation();
+		// this._addAnimation();
 		this.setItemClass();
 		this._updateSlider();
 		//Listeners
