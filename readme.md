@@ -16,19 +16,19 @@ Put this **HTML** code into your `.html` file:
 
 ```html
 <div class="slider--wrapper" id="#slider">
-	<div class="slider--container">
-		<div class="slider--item">1</div>
-		<div class="slider--item">2</div>
-		<div class="slider--item">3</div>
-		<div class="slider--item">4</div>
-		<div class="slider--item">5</div>
-	</div>
-	<div class="slider--navigation">
-		<button class="slider--previous"></button>
-		<div class="slider--dots"></div>
-		<button class="slider--next"></button>
-	</div>
-	<div class="slider--counter"></div>
+  <div class="slider--container">
+    <div class="slider--item">1</div>
+	<div class="slider--item">2</div>
+  	<div class="slider--item">3</div>
+	<div class="slider--item">4</div>
+	<div class="slider--item">5</div>
+  </div>
+  <div class="slider--navigation">
+	<button class="slider--previous"></button>
+	<div class="slider--dots"></div>
+	<button class="slider--next"></button>
+  </div>
+  <div class="slider--counter"></div>
 </div>
 ```
 
@@ -104,18 +104,19 @@ let slider = new Slider('#slider', config).show();
 
 #### List of available configuration parameters
 
-| Name                | Type                                 | Description                                              | Default value |
-| ------------------- | ------------------------------------ | -------------------------------------------------------- | ------------- |
-| `itemClass`         | `string`                             | Adds a CSS class to the slides                           | `none`        |
-| `navigation`        | `boolean`                            | Adds the navigation buttons to your Slider               | `true`        |
-| `dots`              | `boolean`                            | Adds the navigation dots to your Slider                  | `true`        |
-| `counter`           | `boolean`                            | Adds a counter to your Slider                            | `true`        |
-| `autoplay`          | `boolean`                            | Automatically changes the slides                         | `true`        |
-| `autoplayTimeout`   | `number`                             | Defines the time (milliseconds) before the slide changes | `5000`        |
-| `autoplayReversed`  | `boolean`                            | Changes the slides in reverse order                      | `false`       |
-| `animationIn`       | `string` && [animation](#Animations) | Defines an animation when the slide appears              | `'fadeIn'`    |
-| `animationOut`      | `string` && [animation](#Animations) | Defines an animation when the slide disappears           | `'fadeOut'`   |
-| `animationDuration` | `number`                             | Defines the animation duration time (milliseconds)       | `300`         |
+| Name                  | Type                                   | Description                                              | Default value |
+| --------------------- | -------------------------------------- | -------------------------------------------------------- | ------------- |
+| `itemClass`           | `string`                               | Adds a CSS class to the slides                           | `none`        |
+| `showOnMoblieDevices` | `boolean`                              | Defines how to show slider on mobile devices             | `true`        |
+| `navigation`          | `boolean`                              | Adds the navigation buttons to your Slider               | `true`        |
+| `dots`                | `boolean`                              | Adds the navigation dots to your Slider                  | `true`        |
+| `counter`             | `boolean`                              | Adds a counter to your Slider                            | `true`        |
+| `autoplay`            | `boolean`                              | Automatically changes the slides                         | `true`        |
+| `autoplayTimeout`     | `number`                               | Defines the time (milliseconds) before the slide changes | `5000`        |
+| `autoplayReversed`    | `boolean`                              | Changes the slides in reverse order                      | `false`       |
+| `animationIn`         | `string` && [`animation`](#Animations) | Defines an animation when the slide appears              | `'fadeIn'`    |
+| `animationOut`        | `string` && [`animation`](#Animations) | Defines an animation when the slide disappears           | `'fadeOut'`   |
+| `animationDuration`   | `number`                               | Defines the animation duration time (milliseconds)       | `300`         |
 
 #### List of available Slider methods
 
