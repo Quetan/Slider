@@ -41,13 +41,14 @@ export default class Slider {
 
   // Set main root selector
   setRoot (root) {
-    root !== undefined && root ? (this._root = root) : this._root
+    if (root === undefined || !root) throw new Error("Root not found!")
     this.getRootContainer().tabIndex = '0'
   }
 
   getRootContainer () {
-	  let container = document.querySelector(this._root);
-	  return container ?  container : 'throw error here'
+	  const container = document.querySelector(this._root)
+	  if (!container) throw new Error("Root not defined!")
+    return container
   }
 
   // Setter and getter for index
@@ -70,8 +71,10 @@ export default class Slider {
 
   setIndex (newIndex) {
     if ((newIndex && newIndex < this._slidesCount) || newIndex === 0) {
+      
       const temp = this._currentIndex
       this._currentIndex = newIndex
+
       this._updateSlider(temp)
     }
     return this._currentIndex
@@ -141,18 +144,15 @@ export default class Slider {
 
   // Setter for Item Class
   _setItemClass (newClass) {
-    if (this.itemClass === '') return 0
+    if (!newClass || typeof(newClass) !== 'string') throw new Error(`${newClass ? newClass : 'This name'} cannot be a CSS class name!`)
     this._slides.forEach((i) => {
-      i.classList.add(
-        newClass !== undefined && newClass !== '' ? newClass : this.itemClass
-      )
+      i.classList.add(newClass)
     })
   }
 
   _addListener (target, eventType, func) {
-    if (target) {
-      target.addEventListener(eventType, func.bind(this))
-    }
+    if (!target) throw new Error(`${target} not found! ${func.name} on ${eventType} wasn't complete!`) 
+    target.addEventListener(eventType, func.bind(this))
   }
 
   // Add navigation dots
@@ -279,11 +279,11 @@ export default class Slider {
 
   // UpdateSlider
   _updateSlider (currentIndex = this._currentIndex) {
-    if (this._slides !== 0) {
-      this._switchSlide(currentIndex)
-      this._activeDot()
-      this._Counter()
-    }
+    if (this._slides === 0) throw new Error("Slides not found!") 
+    this._switchSlide(currentIndex)
+    this._activeDot()
+    this._Counter()
+
   }
 
   // Init
